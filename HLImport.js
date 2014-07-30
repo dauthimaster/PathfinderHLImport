@@ -8,7 +8,7 @@ Basic Instructions:
 2) In the next menu, choose "Generate XML File" making sure to output only the current hero.
 3) Copy the contents of the xml file to your clipboard.
 4) In Roll20, place a token down that represents this hero, then edit the token and paste the contents of the xml file
-	to the GMNotes section of the token.
+    to the GMNotes section of the token.
 5) As there are several required inputs (due to limitations in the xml), I suggest creating a Roll20 macro using the following syntax:
 
 !import ?{Melee Stat?|str} ?{Ranged Stat?|dex} ?{CMB Stat?|str} ?{Caster Class 0 Stat?|none} ?{Caster Class 1 Stat?|none}
@@ -1304,7 +1304,7 @@ on("chat:message", function (msg) {
         };
         
         // Spells
-        if (StatBlock.match(/<spell\/>/g) != "<spell\/>") {
+        if (StatBlock.match(/<spell (.*?)<\/spell>/g) != null) {
             if (StatBlock.match(/<spell (.*?)<\/spell>/g).pop().match(/<spell (.*?)<\/spell>/g) != null) {
                 var SpellBlock = StatBlock.match(/<spell (.*?)<\/spell>/g);
                 // spell level counter array
@@ -1589,6 +1589,7 @@ on("chat:message", function (msg) {
         AddAttribute("attk-ranged-ability", AttkRangedAbility, Character.id);
         AddAttribute("attk-CMB-ability", AttkCMBAbility, Character.id);
         
+        sendChat("IMPORT", "The import completed, please check your character carefully for accuracy!");
         log("The character has been imported!");
         
 	};

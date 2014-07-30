@@ -48,10 +48,11 @@ to import into Roll20.
 - Cleric Domain Spells, Wizard School Specialization Spells, and other areas where Bonus Spells are gained (favored class bonuses) are not reported the xml, therefore you should
 	double check to make sure that spells per day is set properly.
 
-Not implemented:
+Not implemented in this version:
 - Repeating Weapon Attacks, all weapons will need to be manually added at this time, this may end up as a limitation (meaning no fix possible).
 - Homeland field
 - Occupation field
+- Removal of gmnotes after processing
 */
 
 // Functions

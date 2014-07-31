@@ -149,6 +149,11 @@ on("chat:message", function (msg) {
         StatBlock = StatBlock.replace(/%u2013/g, "-"); // Replace %u2013 with -
 		// END SPECIAL CHARACTER REPLACEMENT or REMOVAL
         
+        // Check that the token has xml header
+        if (StatBlock.indexOf("<?xml") < 0){
+            sendChat("ERROR", "token gmnotes does not include xml data");
+            return;
+        };
         // Get Character Name, Create Sheet, Link token to Character Sheet if the Character Name doesn't already exist
         var CharacterName = StatBlock.match(/<character(.*?)>/g).pop().split("name='")[1].split("'", 1)[0];
         var CheckSheet = findObjs({
@@ -490,11 +495,18 @@ on("chat:message", function (msg) {
         AddAttribute("class-0-hp", HitPointsBase, Character.id);
         AddAttribute("HP", CurrentHP, Character.id);
         
-        // If Characters Total Level is 0, assume this is an NPC, then use the Hit Die to set MaxHP correctly.
-        var ClassesTotalLevel = StatBlock.match(/<classes (.*?)level='(.*?)>/g).pop().split("level='")[1].split("'", 1)[0];
-        if (ClassesTotalLevel == "0") {
-            var ClassesTotalLevel = StatBlock.match(/<health (.*?)\/>/g).pop().split("hitdice='")[1].split("d", 1)[0];
-            AddAttribute("class-0-level", ClassesTotalLevel, Character.id);
+        // Attributes needed for NPC Hit Point Formula calculations.
+        //var ClassesTotalLevel = StatBlock.match(/<classes (.*?)level='(.*?)>/g).pop().split("level='")[1].split("'", 1)[0];
+        var CharacterRole = StatBlock.match(/<character (.*?)>/g).pop().split("role='")[1].split("'", 1)[0];
+        var HitDice = StatBlock.match(/<health(.*?)>/g).pop().split("hitdice='")[1].split("'", 1)[0];
+        // Reduce HitDice down to a total single HD value
+        HitDice = HitDice.match(/\d+(?=d)/g).map(Number);
+        HitDice = HitDice.reduce(function(pv, cv) { return pv + cv; }, 0);
+        
+        // If Character is listed with role='npc' then set HP-formula = HitPointsBase + (@{CON-mod} * HitDice)
+        if (CharacterRole === "npc") {
+            var HPFormula = HitPointsBase + " + (@{CON-mod} * " + HitDice + ")";
+            AddAttribute("HP-formula", HPFormula, Character.id);
         };
         
         // In the case of Constructs and Undead, Constitution is a "-", in this case I am again working around this by
@@ -508,8 +520,8 @@ on("chat:message", function (msg) {
         // so TempHP could be off if you don't use CON as your HP modifier.
         var TempHP = 0
         if (ConHPCheck !== "-"){
-            if (parseInt(HitDieBonus) !== (parseInt(ClassesTotalLevel) * parseInt(ConBonus))){
-                var TempHP = parseInt(HitDieBonus) - (parseInt(ClassesTotalLevel) * parseInt(ConBonus))
+            if (parseInt(HitDieBonus) !== (parseInt(HitDice) * parseInt(ConBonus))){
+                var TempHP = parseInt(HitDieBonus) - (parseInt(HitDice) * parseInt(ConBonus))
             };
         AddAttribute("HP-Temp", TempHP, Character.id);
         };
@@ -1589,8 +1601,11 @@ on("chat:message", function (msg) {
         AddAttribute("attk-ranged-ability", AttkRangedAbility, Character.id);
         AddAttribute("attk-CMB-ability", AttkCMBAbility, Character.id);
         
+        
+        // Cleanup
+        token.set("gmnotes", "");
         sendChat("IMPORT", "The import completed, please check your character carefully for accuracy!");
         log("The character has been imported!");
-        
+       
 	};
 });

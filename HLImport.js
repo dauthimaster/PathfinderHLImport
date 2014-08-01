@@ -1793,20 +1793,6 @@ on("chat:message", function (msg) {
         token.set("gmnotes", "");
         sendChat("IMPORT", "The import completed, please check your character carefully for accuracy!");
         log("The character has been imported!");
-        
-        // Custom code section specific to my game.
-        sendChat("IMPORT", "Setting Bar3 to HP, Bar2 to ac!")
-        var TotalAC = StatBlock.match(/<armorclass (.*?)>/g).pop().split("ac='")[1].split("'", 1)[0];
-        token.set("represents", Character.id);
-        token.set("name", CharacterName);
-        token.set("bar3_value", CurrentHP);
-        token.set("bar3_max", HitPoints);
-        token.set("bar2_value", TotalAC);
-        token.set("bar1_value", HitPoints);
-        
-        log("Token has been configured and gmnotes deleted.")
-        
-        sendChat("IMPORT", "If this is a PC, please remember to link Bar2 and Bar3!")
-        
+  
 	};
 });

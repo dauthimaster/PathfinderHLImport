@@ -1773,23 +1773,6 @@ on("chat:message", function (msg) {
             AddAttribute(RepeatingWeaponProficiency, WeaponProficiency, Character.id);
             AddAttribute(RepeatingWeaponNotes, WeaponNotes, Character.id);
             
-            
-            //log(Weapons);
-            //log(WeaponName);
-            //log(WeaponEnhance);
-            //log(WeaponMasterwork);
-            //log(WeaponAttack);
-            //log(WeaponAttackType);
-            //log(WeaponAttackTypeBonus)
-            //log(WeaponDamageDiceNum);
-            //log(WeaponDamageDie);
-            //log(WeaponDamage);
-            //log(WeaponDamageAbility);
-            //log(WeaponCrit);
-            //log(WeaponCritTarget);
-            //log(WeaponCritMultiplier);
-            //log(WeaponRange;
-            //log(WeaponType);
         };
         
         // Cleanup

@@ -738,7 +738,7 @@ on("chat:message", function (msg) {
         // However if the source is not specified look to see if the type is specified as Supernatural, Spell-Like, or 
         // Extraordinary and add them to the race trait (May not be proper in all cases...)
         
-        if (StatBlock.indexOf("<special ") >= 0); {
+        if (StatBlock.indexOf("<special ") >= 0) {
             var SpecialAbilities = StatBlock.match(/<special (.*?)<\/special>/g);
             
             // Need counter for Racial Traits and Class Abilities

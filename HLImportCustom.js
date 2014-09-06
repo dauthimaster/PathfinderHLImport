@@ -94,6 +94,7 @@ function AddAbility(ability, value, charid) {
 	});
 	return;
 };
+
 // Main
 on("chat:message", function (msg) {
     // Exit if not an api command
@@ -759,6 +760,10 @@ on("chat:message", function (msg) {
             };
         };
         
+        // Prior to adding special abilities, call !psmacro
+        if (CharacterRole === "npc"){
+            MakeMacros(Character.id, true);
+        }
         
         // Throughout XML file special abilities are not sorted neatly by Race/Class/etc.. therefore will need to 
         // process the entire block of Special Abilities and try to sort them as logically as possible...
@@ -802,6 +807,10 @@ on("chat:message", function (msg) {
                             AddAttribute(RepeatingRacialTraitDescription, SpecialDescription, Character.id);
                             AddAttribute(RepeatingRacialTraitUsed, 0, Character.id);
                             AddAttribute(RepeatingRacialTraitMaxCalculation, 0, Character.id);
+                            if (CharacterRole === "npc"){
+                                AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpecialName + " --leftsub| --rightsub| --Effect| --Description|" + SpecialDescription;
+                                AddAbility(SpecialName, AbilityMacro, Character.id);
+                            };
                         };
                     if (typeof Class0 !== 'undefined') {
                         if (Class0.indexOf(SpecialSource) >= 0) {
@@ -957,6 +966,10 @@ on("chat:message", function (msg) {
                 AddAttribute(RepeatingRacialTraitDescription, SpecialDescription, Character.id);
                 AddAttribute(RepeatingRacialTraitUsed, 0, Character.id);
                 AddAttribute(RepeatingRacialTraitMaxCalculation, 0, Character.id);
+                if (CharacterRole === "npc"){
+                    AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpecialName + " --leftsub| --rightsub| --Effect| --Description|" + SpecialDescription;
+                    AddAbility(SpecialName, AbilityMacro, Character.id);
+                };    
                 }; 
             };
         };
@@ -1037,6 +1050,11 @@ on("chat:message", function (msg) {
                             AddAttribute(RepeatingSpellLikeDescription, SpellLikeDescription, Character.id);
                             AddAttribute(RepeatingSpellLikeUsed, 0, Character.id);
                             AddAttribute(RepeatingSpellLikeMaxCalculation, 0, Character.id);
+                            // Add generic ability macro for Spell-Like Abilities for NPC
+                            if (CharacterRole === "npc"){
+                                AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellLikeName + " --leftsub| --rightsub| --Effect| --Description|" + SpellLikeDescription;
+                                AddAbility(SpellLikeName, AbilityMacro, Character.id);
+                            };
                         };
                     };
                 };
@@ -1460,6 +1478,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[0]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='1'") >= 0) {
@@ -1483,6 +1505,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[1]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='2'") >= 0) {
@@ -1506,6 +1532,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[2]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='3'") >= 0) {
@@ -1529,6 +1559,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[3]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='4'") >= 0) {
@@ -1552,6 +1586,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[4]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='5'") >= 0) {
@@ -1575,6 +1613,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[5]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='6'") >= 0) {
@@ -1598,6 +1640,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[6]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='7'") >= 0) {
@@ -1621,6 +1667,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[7]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='8'") >= 0) {
@@ -1644,6 +1694,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[8]++;
                     };
                     if (SpellBlock[sb].indexOf(" level='9'") >= 0) {
@@ -1667,6 +1721,10 @@ on("chat:message", function (msg) {
                         AddAttribute(RepeatingSpellSave, SpellSave, Character.id);
                         AddAttribute(RepeatingSpellSR, SpellSR, Character.id);
                         AddAttribute(RepeatingSpellDescription, SpellDescription, Character.id);
+                        if (CharacterRole === "npc"){
+                            AbilityMacro = "!power --whisper| --name|@{character_name}'s " + SpellName + " --leftsub|" + SpellSave + " --rightsub|SR: " + SpellSR + " --Level|" + SpellLevel + " --Casting Time|" + SpellCastTime + " --Range|" + SpellRange + " --Targets/Area|" + SpellTargets + " --Effect| --Description|" + SpellDescription;
+                            AddAbility(SpellName, AbilityMacro, Character.id);
+                        };
                         slc[9]++;
                     };
                 };
@@ -1848,5 +1906,55 @@ on("chat:message", function (msg) {
         token.set("gmnotes", "");
         sendChat("IMPORT", "The import completed, please check your character carefully for accuracy!");
         log("The character has been imported!");
+        
+        // Custom code section specific to my game.
+        sendChat("IMPORT", "Setting Bar3 to HP, Bar2 to ac!")
+        var TotalAC = StatBlock.match(/<armorclass (.*?)>/g).pop().split("ac='")[1].split("'", 1)[0];
+        token.set("represents", Character.id);
+        token.set("name", CharacterName);
+        token.set("showname", true);
+        
+        if (CharacterRole === "npc") {
+            token.set("bar3_value", CurrentHP);
+            token.set("bar3_max", HitPoints);
+            token.set("bar2_value", TotalAC);
+            token.set("bar1_value", HitPoints);
+        };
+        
+        if (CharacterRole === "pc") {
+            var bar3 = findObjs({
+                _type: "attribute",
+                _characterid: Character.id,
+                name: "HP"
+            });
+            token.set("bar3_link", bar3[0].id);
+            token.set("bar3_value", CurrentHP);
+            
+            /* findObjs isn't returning autocalculated field IDs currently.
+            var bar2 = findObjs({
+                _type: "attribute",
+                _characterid: Character.id,
+                name: "AC"
+            });
+            log(bar2);
+            //token.set("bar2_link", bar2[0].id);*/
+            //token.set("bar2_value", TotalAC);
+            AddAttribute("MaxHP", HitPoints, Character.id);
+            var bar1 = findObjs({
+                _type: "attribute",
+                _characterid: Character.id,
+                name: "MaxHP"
+            });
+            token.set("bar1_link", bar1[0].id);
+            token.set("bar1_value", HitPoints);
+            
+            var CharDup = "Copy existing marcos: !chardup --<source> --" + CharacterName;
+            var PSMacro = "Create new macros: !psmacro --" + CharacterName;
+            sendChat("IMPORT", PSMacro);
+            sendChat("IMPORT", CharDup);
+            sendChat("IMPORT", "Reminder: Set Bar 2 to link to ac for PC");
+        };
+        
+        log("Token has been configured and gmnotes deleted.")
 	};
 });
